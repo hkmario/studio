@@ -26,53 +26,51 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import type { Contract } from "@/lib/types"
-import { format, parseISO } from 'date-fns';
+import type { Bill } from "@/lib/types"
+import { format, parse } from 'date-fns';
 
-export function ContractsTable({ data }: { data: Contract[] }) {
+export function BillsTable({ data }: { data: Bill[] }) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Contracts</CardTitle>
+        <CardTitle>Bills</CardTitle>
         <CardDescription>
-          Manage your contracts and view their status.
+          Manage your bills and view their payment status.
         </CardDescription>
       </CardHeader>
       <CardContent>
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Vendor</TableHead>
+              <TableHead>Bill ID</TableHead>
               <TableHead className="hidden md:table-cell">
-                Account ID
+                Product ID
+              </TableHead>
+              <TableHead>Billing Period</TableHead>
+              <TableHead className="hidden md:table-cell">
+                Amount
               </TableHead>
               <TableHead>Status</TableHead>
-              <TableHead className="hidden md:table-cell">
-                Contract Sum
-              </TableHead>
-              <TableHead className="hidden md:table-cell">
-                End Date
-              </TableHead>
               <TableHead>
                 <span className="sr-only">Actions</span>
               </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {data.map(contract => (
-              <TableRow key={contract.AccountID}>
-                <TableCell className="font-medium">{contract.VendorName}</TableCell>
-                <TableCell className="hidden md:table-cell">{contract.AccountID}</TableCell>
+            {data.map(bill => (
+              <TableRow key={bill.BillID}>
+                <TableCell className="font-medium">{bill.BillID}</TableCell>
+                <TableCell className="hidden md:table-cell">{bill.ProductID}</TableCell>
                 <TableCell>
-                  <Badge variant={contract.Status === 'Active' ? 'secondary' : contract.Status === 'Expired' ? 'destructive' : 'outline'}>
-                    {contract.Status}
+                  {format(parse(bill.BillingPeriod, 'yyyy-MM', new Date()), "MMMM yyyy")}
+                </TableCell>
+                <TableCell className="hidden md:table-cell">
+                    ${bill.MonthlyCost.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                </TableCell>
+                <TableCell>
+                  <Badge variant={bill.Status === 'Paid' ? 'secondary' : bill.Status === 'Overdue' ? 'destructive' : 'outline'}>
+                    {bill.Status}
                   </Badge>
-                </TableCell>
-                <TableCell className="hidden md:table-cell">
-                    ${contract.ContractSum.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                </TableCell>
-                <TableCell className="hidden md:table-cell">
-                    {format(parseISO(contract.ContractEndDate), "MMM d, yyyy")}
                 </TableCell>
                 <TableCell>
                   <DropdownMenu>
@@ -85,8 +83,7 @@ export function ContractsTable({ data }: { data: Contract[] }) {
                     <DropdownMenuContent align="end">
                       <DropdownMenuLabel>Actions</DropdownMenuLabel>
                       <DropdownMenuItem>View Details</DropdownMenuItem>
-                      <DropdownMenuItem>Edit</DropdownMenuItem>
-                      <DropdownMenuItem>Delete</DropdownMenuItem>
+                      <DropdownMenuItem>Mark as Paid</DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </TableCell>
@@ -97,7 +94,7 @@ export function ContractsTable({ data }: { data: Contract[] }) {
       </CardContent>
       <CardFooter>
         <div className="text-xs text-muted-foreground">
-          Showing <strong>1-5</strong> of <strong>{data.length}</strong> contracts
+          Showing <strong>1-{data.length > 5 ? 5 : data.length}</strong> of <strong>{data.length}</strong> bills
         </div>
       </CardFooter>
     </Card>

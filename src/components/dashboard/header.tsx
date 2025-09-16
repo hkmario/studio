@@ -38,7 +38,7 @@ import { UploadDialog } from "./upload-dialog";
 const navItems = [
   { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
   { href: "/dashboard/contracts", icon: FileText, label: "Contracts" },
-  { href: "/dashboard", icon: ReceiptText, label: "Bills" },
+  { href: "/dashboard/bills", icon: ReceiptText, label: "Bills" },
   { href: "/dashboard", icon: BarChart3, label: "Analytics" },
 ];
 

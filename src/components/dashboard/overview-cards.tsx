@@ -1,9 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FileText, FileCheck, DollarSign, AlertTriangle } from "lucide-react";
-import { contracts, products } from "@/lib/data";
+import type { Contract, Product } from "@/lib/types";
 import { differenceInDays, parseISO } from "date-fns";
 
-export function OverviewCards() {
+export function OverviewCards({ contracts, products }: { contracts: Contract[], products: Product[] }) {
   const totalContracts = contracts.length;
   const activeContracts = contracts.filter(c => c.Status === 'Active').length;
   

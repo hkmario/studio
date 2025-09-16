@@ -1,12 +1,11 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { contracts } from "@/lib/data";
+import type { Contract } from "@/lib/types";
 import { ArrowUpRight } from "lucide-react";
 import { differenceInDays, format, parseISO } from "date-fns";
 import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
 
-export function UpcomingRenewals() {
+export function UpcomingRenewals({ contracts }: { contracts: Contract[] }) {
     const upcoming = contracts
         .filter(c => {
             const endDate = parseISO(c.ContractEndDate);

@@ -2,10 +2,10 @@
 
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { bills, products } from "@/lib/data";
+import type { Bill } from "@/lib/types";
 import { format, subMonths, parse } from 'date-fns';
 
-const getMonthlySpending = () => {
+const getMonthlySpending = (bills: Bill[]) => {
     const monthlyTotals: { [key: string]: number } = {};
     const now = new Date();
 
@@ -28,8 +28,8 @@ const getMonthlySpending = () => {
 }
 
 
-export function SpendingChart() {
-    const data = getMonthlySpending();
+export function SpendingChart({ bills }: { bills: Bill[] }) {
+    const data = getMonthlySpending(bills);
     return (
         <Card>
             <CardHeader>
