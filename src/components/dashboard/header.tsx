@@ -36,10 +36,10 @@ export function AppHeader() {
 
   const navItems = [
     { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
-    { href: "/dashboard/contracts", icon: FileText, label: "Contracts" },
-    { href: "/dashboard/bills", icon: ReceiptText, label: "Bills" },
-    { href: "/dashboard/analytics", icon: BarChart3, label: "Analytics" },
-    { href: "/dashboard/settings", icon: Settings, label: "Settings" },
+    { href: "/dashboard", icon: FileText, label: "Contracts" },
+    { href: "/dashboard", icon: ReceiptText, label: "Bills" },
+    { href: "/dashboard", icon: BarChart3, label: "Analytics" },
+    { href: "/dashboard", icon: Settings, label: "Settings" },
   ];
 
   return (
@@ -111,12 +111,14 @@ export function AppHeader() {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>
+          <DropdownMenuItem asChild>
             <Link href="/dashboard/settings">Settings</Link>
           </DropdownMenuItem>
-          <DropdownMenuItem>Support</DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link href="/dashboard">Support</Link>
+          </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>
+          <DropdownMenuItem asChild>
             <Link href="/">Logout</Link>
           </DropdownMenuItem>
         </DropdownMenuContent>

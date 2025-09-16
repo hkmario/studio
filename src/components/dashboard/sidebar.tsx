@@ -7,9 +7,9 @@ import { cn } from "@/lib/utils";
 
 const navItems = [
     { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
-    { href: "/dashboard/contracts", icon: FileText, label: "Contracts" },
-    { href: "/dashboard/bills", icon: ReceiptText, label: "Bills" },
-    { href: "/dashboard/analytics", icon: BarChart3, label: "Analytics" },
+    { href: "/dashboard", icon: FileText, label: "Contracts" },
+    { href: "/dashboard", icon: ReceiptText, label: "Bills" },
+    { href: "/dashboard", icon: BarChart3, label: "Analytics" },
 ];
 
 const settingsItem = { href: "/dashboard/settings", icon: Settings, label: "Settings" };
@@ -61,7 +61,7 @@ export function AppSidebar() {
                                     )}
                             >
                                 <settingsItem.icon className="h-5 w-5" />
-                                <span className="sr-only">{item.label}</span>
+                                <span className="sr-only">{settingsItem.label}</span>
                             </Link>
                         </TooltipTrigger>
                         <TooltipContent side="right">{settingsItem.label}</TooltipContent>

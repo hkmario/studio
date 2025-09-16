@@ -27,7 +27,7 @@ export function UpcomingRenewals() {
           </CardDescription>
         </div>
         <Button asChild size="sm" className="ml-auto gap-1 bg-accent text-accent-foreground hover:bg-accent/90">
-          <Link href="#">
+          <Link href="/dashboard/contracts">
             View All
             <ArrowUpRight className="h-4 w-4" />
           </Link>
