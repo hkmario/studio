@@ -2,29 +2,14 @@ import { OverviewCards } from "@/components/dashboard/overview-cards";
 import { SpendingChart } from "@/components/dashboard/spending-chart";
 import { UpcomingRenewals } from "@/components/dashboard/upcoming-renewals";
 import { ContractsTable } from "@/components/dashboard/contracts-table";
-import type { Contract, Product, Bill } from "@/lib/types";
-
-async function getData(): Promise<{ contracts: Contract[], products: Product[], bills: Bill[] }> {
-  const [contractsRes, productsRes, billsRes] = await Promise.all([
-    fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/contracts`, { cache: 'no-store' }),
-    fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/products`, { cache: 'no-store' }),
-    fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/bills`, { cache: 'no-store' })
-  ]);
-
-  if (!contractsRes.ok || !productsRes.ok || !billsRes.ok) {
-    throw new Error('Failed to fetch data');
-  }
-
-  const contracts = await contractsRes.json();
-  const products = await productsRes.json();
-  const bills = await billsRes.json();
-
-  return { contracts, products, bills };
-}
-
+import { getContracts, getProducts, getBills } from "@/lib/db";
 
 export default async function DashboardPage() {
-  const { contracts, products, bills } = await getData();
+  const [contracts, products, bills] = await Promise.all([
+    getContracts(),
+    getProducts(),
+    getBills()
+  ]);
 
   return (
     <>

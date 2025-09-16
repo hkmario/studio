@@ -1,8 +1,8 @@
 export type Contract = {
   AccountID: string;
   VendorName: string;
-  ContractStartDate: string;
-  ContractEndDate: string;
+  ContractStartDate: string; // YYYY-MM-DD
+  ContractEndDate: string; // YYYY-MM-DD
   ContractSum: number;
   BusinessUnit: string;
   RenewalType: 'Auto-Renew' | 'Manual';
@@ -23,7 +23,7 @@ export type Product = {
 export type Bill = {
   BillID: string;
   ProductID: string;
-  BillingPeriod: string; // e.g., "2024-07"
+  BillingPeriod: string; // YYYY-MM
   MonthlyCost: number;
   Status: 'Paid' | 'Due' | 'Overdue';
   Comments: string;

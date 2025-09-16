@@ -1,13 +1,5 @@
 import { BillsTable } from "@/components/dashboard/bills-table";
-import type { Bill } from "@/lib/types";
-
-async function getBills(): Promise<Bill[]> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/bills`, { cache: 'no-store' });
-  if (!res.ok) {
-    throw new Error('Failed to fetch bills');
-  }
-  return res.json();
-}
+import { getBills } from "@/lib/db";
 
 export default async function BillsPage() {
   const bills = await getBills();
