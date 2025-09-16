@@ -1,8 +1,7 @@
 "use client";
 import Link from "next/link";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { FileText, LayoutDashboard, BarChart3, ReceiptText, Settings, PanelLeft } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { FileText, LayoutDashboard, BarChart3, ReceiptText, Settings } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
@@ -23,7 +22,7 @@ export function AppSidebar() {
             <TooltipProvider>
                 <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
                     <Link
-                        href="#"
+                        href="/dashboard"
                         className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
                     >
                         <FileText className="h-4 w-4 transition-all group-hover:scale-110" />
@@ -62,7 +61,7 @@ export function AppSidebar() {
                                     )}
                             >
                                 <settingsItem.icon className="h-5 w-5" />
-                                <span className="sr-only">{settingsItem.label}</span>
+                                <span className="sr-only">{item.label}</span>
                             </Link>
                         </TooltipTrigger>
                         <TooltipContent side="right">{settingsItem.label}</TooltipContent>
