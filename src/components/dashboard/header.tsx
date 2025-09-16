@@ -1,8 +1,9 @@
+"use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   Bell,
   FileText,
-  Home,
   PanelLeft,
   Search,
   LayoutDashboard,
@@ -15,6 +16,8 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
+  BreadcrumbSeparator,
+  BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
 import {
@@ -31,16 +34,20 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { UploadDialog } from "./upload-dialog";
 
+const navItems = [
+  { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
+  { href: "/dashboard/contracts", icon: FileText, label: "Contracts" },
+  { href: "/dashboard", icon: ReceiptText, label: "Bills" },
+  { href: "/dashboard", icon: BarChart3, label: "Analytics" },
+];
+
+const settingsItem = { href: "/dashboard/settings", icon: Settings, label: "Settings" };
+
+
 export function AppHeader() {
   const userAvatar = PlaceHolderImages.find(p => p.id === 'user-avatar');
-
-  const navItems = [
-    { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
-    { href: "/dashboard", icon: FileText, label: "Contracts" },
-    { href: "/dashboard", icon: ReceiptText, label: "Bills" },
-    { href: "/dashboard", icon: BarChart3, label: "Analytics" },
-    { href: "/dashboard", icon: Settings, label: "Settings" },
-  ];
+  const pathname = usePathname();
+  const pathSegments = pathname.split('/').filter(Boolean);
 
   return (
     <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
@@ -60,7 +67,7 @@ export function AppHeader() {
               <FileText className="h-5 w-5 transition-all group-hover:scale-110" />
               <span className="sr-only">ContractEase</span>
             </Link>
-            {navItems.map((item) => (
+            {[...navItems, settingsItem].map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
@@ -80,6 +87,24 @@ export function AppHeader() {
               <Link href="/dashboard">Dashboard</Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
+          {pathSegments.slice(1).map((segment, index) => (
+            <React.Fragment key={segment}>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                {index < pathSegments.length - 2 ? (
+                  <BreadcrumbLink asChild>
+                    <Link href={`/${pathSegments.slice(0, index + 2).join('/')}`}>
+                      {segment.charAt(0).toUpperCase() + segment.slice(1)}
+                    </Link>
+                  </BreadcrumbLink>
+                ) : (
+                  <BreadcrumbPage>
+                    {segment.charAt(0).toUpperCase() + segment.slice(1)}
+                  </BreadcrumbPage>
+                )}
+              </BreadcrumbItem>
+            </React.Fragment>
+          ))}
         </BreadcrumbList>
       </Breadcrumb>
       <div className="relative ml-auto flex-1 md:grow-0">

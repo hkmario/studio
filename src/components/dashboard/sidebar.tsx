@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 
 const navItems = [
     { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
-    { href: "/dashboard", icon: FileText, label: "Contracts" },
+    { href: "/dashboard/contracts", icon: FileText, label: "Contracts" },
     { href: "/dashboard", icon: ReceiptText, label: "Bills" },
     { href: "/dashboard", icon: BarChart3, label: "Analytics" },
 ];
@@ -29,7 +29,7 @@ export function AppSidebar() {
                         <span className="sr-only">ContractEase</span>
                     </Link>
                     {navItems.map((item) => (
-                        <Tooltip key={item.href}>
+                        <Tooltip key={item.label}>
                             <TooltipTrigger asChild>
                                 <Link
                                     href={item.href}
